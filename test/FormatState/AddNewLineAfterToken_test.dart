@@ -33,6 +33,7 @@ void main()
                         indentationSpacesPerLevel: 4,
                         maxDateTime: maxDateTime,
                         removeTrailingCommas: true,
+                        useTabs: false,
                         startDateTime: startDateTime
                     );
 
@@ -74,6 +75,7 @@ void main()
                         indentationSpacesPerLevel: 4,
                         maxDateTime: maxDateTime,
                         removeTrailingCommas: false,
+                        useTabs: false,
                         startDateTime: startDateTime
                     );
 

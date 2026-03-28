@@ -49,6 +49,7 @@ class Formatter
             indentationSpacesPerLevel: _config.indentationSpacesPerLevel,
             maxDateTime: maxDateTime,
             removeTrailingCommas: _config.removeTrailingCommas,
+            useTabs: _config.useTabs,
             startDateTime: startDateTime
         );
 

@@ -22,7 +22,8 @@ mixin _$Config {
  bool get addNewLineAtEndOfText;/// Whether to add a new line before a closing brace.
  bool get addNewLineBeforeClosingBrace;/// Whether to add a new line before an opening brace.
  bool get addNewLineBeforeOpeningBrace;/// Whether to fix spaces.
- bool get fixSpaces;/// The number of spaces to use for indentation. -1 = do not change indentation.
+ bool get fixSpaces;/// Whether to use tabs for indentation.
+ bool get useTabs;/// The number of spaces to use for indentation. -1 = do not change indentation.
  int get indentationSpacesPerLevel;/// The maximum number of empty lines to allow. -1 = do not change empty lines.
  int get maxEmptyLines;/// Whether to remove trailing commas.
  bool get removeTrailingCommas;
@@ -38,16 +39,16 @@ $ConfigCopyWith<Config> get copyWith => _$ConfigCopyWithImpl<Config>(this as Con
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Config&&(identical(other.addNewLineAfterClosingBrace, addNewLineAfterClosingBrace) || other.addNewLineAfterClosingBrace == addNewLineAfterClosingBrace)&&(identical(other.addNewLineAfterOpeningBrace, addNewLineAfterOpeningBrace) || other.addNewLineAfterOpeningBrace == addNewLineAfterOpeningBrace)&&(identical(other.addNewLineAfterSemicolon, addNewLineAfterSemicolon) || other.addNewLineAfterSemicolon == addNewLineAfterSemicolon)&&(identical(other.addNewLineAtEndOfText, addNewLineAtEndOfText) || other.addNewLineAtEndOfText == addNewLineAtEndOfText)&&(identical(other.addNewLineBeforeClosingBrace, addNewLineBeforeClosingBrace) || other.addNewLineBeforeClosingBrace == addNewLineBeforeClosingBrace)&&(identical(other.addNewLineBeforeOpeningBrace, addNewLineBeforeOpeningBrace) || other.addNewLineBeforeOpeningBrace == addNewLineBeforeOpeningBrace)&&(identical(other.fixSpaces, fixSpaces) || other.fixSpaces == fixSpaces)&&(identical(other.indentationSpacesPerLevel, indentationSpacesPerLevel) || other.indentationSpacesPerLevel == indentationSpacesPerLevel)&&(identical(other.maxEmptyLines, maxEmptyLines) || other.maxEmptyLines == maxEmptyLines)&&(identical(other.removeTrailingCommas, removeTrailingCommas) || other.removeTrailingCommas == removeTrailingCommas));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Config&&(identical(other.addNewLineAfterClosingBrace, addNewLineAfterClosingBrace) || other.addNewLineAfterClosingBrace == addNewLineAfterClosingBrace)&&(identical(other.addNewLineAfterOpeningBrace, addNewLineAfterOpeningBrace) || other.addNewLineAfterOpeningBrace == addNewLineAfterOpeningBrace)&&(identical(other.addNewLineAfterSemicolon, addNewLineAfterSemicolon) || other.addNewLineAfterSemicolon == addNewLineAfterSemicolon)&&(identical(other.addNewLineAtEndOfText, addNewLineAtEndOfText) || other.addNewLineAtEndOfText == addNewLineAtEndOfText)&&(identical(other.addNewLineBeforeClosingBrace, addNewLineBeforeClosingBrace) || other.addNewLineBeforeClosingBrace == addNewLineBeforeClosingBrace)&&(identical(other.addNewLineBeforeOpeningBrace, addNewLineBeforeOpeningBrace) || other.addNewLineBeforeOpeningBrace == addNewLineBeforeOpeningBrace)&&(identical(other.fixSpaces, fixSpaces) || other.fixSpaces == fixSpaces)&&(identical(other.useTabs, useTabs) || other.useTabs == useTabs)&&(identical(other.indentationSpacesPerLevel, indentationSpacesPerLevel) || other.indentationSpacesPerLevel == indentationSpacesPerLevel)&&(identical(other.maxEmptyLines, maxEmptyLines) || other.maxEmptyLines == maxEmptyLines)&&(identical(other.removeTrailingCommas, removeTrailingCommas) || other.removeTrailingCommas == removeTrailingCommas));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,addNewLineAfterClosingBrace,addNewLineAfterOpeningBrace,addNewLineAfterSemicolon,addNewLineAtEndOfText,addNewLineBeforeClosingBrace,addNewLineBeforeOpeningBrace,fixSpaces,indentationSpacesPerLevel,maxEmptyLines,removeTrailingCommas);
+int get hashCode => Object.hash(runtimeType,addNewLineAfterClosingBrace,addNewLineAfterOpeningBrace,addNewLineAfterSemicolon,addNewLineAtEndOfText,addNewLineBeforeClosingBrace,addNewLineBeforeOpeningBrace,fixSpaces,useTabs,indentationSpacesPerLevel,maxEmptyLines,removeTrailingCommas);
 
 @override
 String toString() {
-  return 'Config(addNewLineAfterClosingBrace: $addNewLineAfterClosingBrace, addNewLineAfterOpeningBrace: $addNewLineAfterOpeningBrace, addNewLineAfterSemicolon: $addNewLineAfterSemicolon, addNewLineAtEndOfText: $addNewLineAtEndOfText, addNewLineBeforeClosingBrace: $addNewLineBeforeClosingBrace, addNewLineBeforeOpeningBrace: $addNewLineBeforeOpeningBrace, fixSpaces: $fixSpaces, indentationSpacesPerLevel: $indentationSpacesPerLevel, maxEmptyLines: $maxEmptyLines, removeTrailingCommas: $removeTrailingCommas)';
+  return 'Config(addNewLineAfterClosingBrace: $addNewLineAfterClosingBrace, addNewLineAfterOpeningBrace: $addNewLineAfterOpeningBrace, addNewLineAfterSemicolon: $addNewLineAfterSemicolon, addNewLineAtEndOfText: $addNewLineAtEndOfText, addNewLineBeforeClosingBrace: $addNewLineBeforeClosingBrace, addNewLineBeforeOpeningBrace: $addNewLineBeforeOpeningBrace, fixSpaces: $fixSpaces, useTabs: $useTabs, indentationSpacesPerLevel: $indentationSpacesPerLevel, maxEmptyLines: $maxEmptyLines, removeTrailingCommas: $removeTrailingCommas)';
 }
 
 
@@ -58,7 +59,7 @@ abstract mixin class $ConfigCopyWith<$Res>  {
   factory $ConfigCopyWith(Config value, $Res Function(Config) _then) = _$ConfigCopyWithImpl;
 @useResult
 $Res call({
- bool addNewLineAfterClosingBrace, bool addNewLineAfterOpeningBrace, bool addNewLineAfterSemicolon, bool addNewLineAtEndOfText, bool addNewLineBeforeClosingBrace, bool addNewLineBeforeOpeningBrace, bool fixSpaces, int indentationSpacesPerLevel, int maxEmptyLines, bool removeTrailingCommas
+ bool addNewLineAfterClosingBrace, bool addNewLineAfterOpeningBrace, bool addNewLineAfterSemicolon, bool addNewLineAtEndOfText, bool addNewLineBeforeClosingBrace, bool addNewLineBeforeOpeningBrace, bool fixSpaces, bool useTabs, int indentationSpacesPerLevel, int maxEmptyLines, bool removeTrailingCommas
 });
 
 
@@ -75,7 +76,7 @@ class _$ConfigCopyWithImpl<$Res>
 
 /// Create a copy of Config
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? addNewLineAfterClosingBrace = null,Object? addNewLineAfterOpeningBrace = null,Object? addNewLineAfterSemicolon = null,Object? addNewLineAtEndOfText = null,Object? addNewLineBeforeClosingBrace = null,Object? addNewLineBeforeOpeningBrace = null,Object? fixSpaces = null,Object? indentationSpacesPerLevel = null,Object? maxEmptyLines = null,Object? removeTrailingCommas = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? addNewLineAfterClosingBrace = null,Object? addNewLineAfterOpeningBrace = null,Object? addNewLineAfterSemicolon = null,Object? addNewLineAtEndOfText = null,Object? addNewLineBeforeClosingBrace = null,Object? addNewLineBeforeOpeningBrace = null,Object? fixSpaces = null,Object? useTabs = null,Object? indentationSpacesPerLevel = null,Object? maxEmptyLines = null,Object? removeTrailingCommas = null,}) {
   return _then(_self.copyWith(
 addNewLineAfterClosingBrace: null == addNewLineAfterClosingBrace ? _self.addNewLineAfterClosingBrace : addNewLineAfterClosingBrace // ignore: cast_nullable_to_non_nullable
 as bool,addNewLineAfterOpeningBrace: null == addNewLineAfterOpeningBrace ? _self.addNewLineAfterOpeningBrace : addNewLineAfterOpeningBrace // ignore: cast_nullable_to_non_nullable
@@ -84,6 +85,7 @@ as bool,addNewLineAtEndOfText: null == addNewLineAtEndOfText ? _self.addNewLineA
 as bool,addNewLineBeforeClosingBrace: null == addNewLineBeforeClosingBrace ? _self.addNewLineBeforeClosingBrace : addNewLineBeforeClosingBrace // ignore: cast_nullable_to_non_nullable
 as bool,addNewLineBeforeOpeningBrace: null == addNewLineBeforeOpeningBrace ? _self.addNewLineBeforeOpeningBrace : addNewLineBeforeOpeningBrace // ignore: cast_nullable_to_non_nullable
 as bool,fixSpaces: null == fixSpaces ? _self.fixSpaces : fixSpaces // ignore: cast_nullable_to_non_nullable
+as bool,useTabs: null == useTabs ? _self.useTabs : useTabs // ignore: cast_nullable_to_non_nullable
 as bool,indentationSpacesPerLevel: null == indentationSpacesPerLevel ? _self.indentationSpacesPerLevel : indentationSpacesPerLevel // ignore: cast_nullable_to_non_nullable
 as int,maxEmptyLines: null == maxEmptyLines ? _self.maxEmptyLines : maxEmptyLines // ignore: cast_nullable_to_non_nullable
 as int,removeTrailingCommas: null == removeTrailingCommas ? _self.removeTrailingCommas : removeTrailingCommas // ignore: cast_nullable_to_non_nullable
@@ -172,10 +174,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool addNewLineAfterClosingBrace,  bool addNewLineAfterOpeningBrace,  bool addNewLineAfterSemicolon,  bool addNewLineAtEndOfText,  bool addNewLineBeforeClosingBrace,  bool addNewLineBeforeOpeningBrace,  bool fixSpaces,  int indentationSpacesPerLevel,  int maxEmptyLines,  bool removeTrailingCommas)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool addNewLineAfterClosingBrace,  bool addNewLineAfterOpeningBrace,  bool addNewLineAfterSemicolon,  bool addNewLineAtEndOfText,  bool addNewLineBeforeClosingBrace,  bool addNewLineBeforeOpeningBrace,  bool fixSpaces,  bool useTabs,  int indentationSpacesPerLevel,  int maxEmptyLines,  bool removeTrailingCommas)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Config() when $default != null:
-return $default(_that.addNewLineAfterClosingBrace,_that.addNewLineAfterOpeningBrace,_that.addNewLineAfterSemicolon,_that.addNewLineAtEndOfText,_that.addNewLineBeforeClosingBrace,_that.addNewLineBeforeOpeningBrace,_that.fixSpaces,_that.indentationSpacesPerLevel,_that.maxEmptyLines,_that.removeTrailingCommas);case _:
+return $default(_that.addNewLineAfterClosingBrace,_that.addNewLineAfterOpeningBrace,_that.addNewLineAfterSemicolon,_that.addNewLineAtEndOfText,_that.addNewLineBeforeClosingBrace,_that.addNewLineBeforeOpeningBrace,_that.fixSpaces,_that.useTabs,_that.indentationSpacesPerLevel,_that.maxEmptyLines,_that.removeTrailingCommas);case _:
   return orElse();
 
 }
@@ -193,10 +195,10 @@ return $default(_that.addNewLineAfterClosingBrace,_that.addNewLineAfterOpeningBr
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool addNewLineAfterClosingBrace,  bool addNewLineAfterOpeningBrace,  bool addNewLineAfterSemicolon,  bool addNewLineAtEndOfText,  bool addNewLineBeforeClosingBrace,  bool addNewLineBeforeOpeningBrace,  bool fixSpaces,  int indentationSpacesPerLevel,  int maxEmptyLines,  bool removeTrailingCommas)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool addNewLineAfterClosingBrace,  bool addNewLineAfterOpeningBrace,  bool addNewLineAfterSemicolon,  bool addNewLineAtEndOfText,  bool addNewLineBeforeClosingBrace,  bool addNewLineBeforeOpeningBrace,  bool fixSpaces,  bool useTabs,  int indentationSpacesPerLevel,  int maxEmptyLines,  bool removeTrailingCommas)  $default,) {final _that = this;
 switch (_that) {
 case _Config():
-return $default(_that.addNewLineAfterClosingBrace,_that.addNewLineAfterOpeningBrace,_that.addNewLineAfterSemicolon,_that.addNewLineAtEndOfText,_that.addNewLineBeforeClosingBrace,_that.addNewLineBeforeOpeningBrace,_that.fixSpaces,_that.indentationSpacesPerLevel,_that.maxEmptyLines,_that.removeTrailingCommas);case _:
+return $default(_that.addNewLineAfterClosingBrace,_that.addNewLineAfterOpeningBrace,_that.addNewLineAfterSemicolon,_that.addNewLineAtEndOfText,_that.addNewLineBeforeClosingBrace,_that.addNewLineBeforeOpeningBrace,_that.fixSpaces,_that.useTabs,_that.indentationSpacesPerLevel,_that.maxEmptyLines,_that.removeTrailingCommas);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -213,10 +215,10 @@ return $default(_that.addNewLineAfterClosingBrace,_that.addNewLineAfterOpeningBr
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool addNewLineAfterClosingBrace,  bool addNewLineAfterOpeningBrace,  bool addNewLineAfterSemicolon,  bool addNewLineAtEndOfText,  bool addNewLineBeforeClosingBrace,  bool addNewLineBeforeOpeningBrace,  bool fixSpaces,  int indentationSpacesPerLevel,  int maxEmptyLines,  bool removeTrailingCommas)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool addNewLineAfterClosingBrace,  bool addNewLineAfterOpeningBrace,  bool addNewLineAfterSemicolon,  bool addNewLineAtEndOfText,  bool addNewLineBeforeClosingBrace,  bool addNewLineBeforeOpeningBrace,  bool fixSpaces,  bool useTabs,  int indentationSpacesPerLevel,  int maxEmptyLines,  bool removeTrailingCommas)?  $default,) {final _that = this;
 switch (_that) {
 case _Config() when $default != null:
-return $default(_that.addNewLineAfterClosingBrace,_that.addNewLineAfterOpeningBrace,_that.addNewLineAfterSemicolon,_that.addNewLineAtEndOfText,_that.addNewLineBeforeClosingBrace,_that.addNewLineBeforeOpeningBrace,_that.fixSpaces,_that.indentationSpacesPerLevel,_that.maxEmptyLines,_that.removeTrailingCommas);case _:
+return $default(_that.addNewLineAfterClosingBrace,_that.addNewLineAfterOpeningBrace,_that.addNewLineAfterSemicolon,_that.addNewLineAtEndOfText,_that.addNewLineBeforeClosingBrace,_that.addNewLineBeforeOpeningBrace,_that.fixSpaces,_that.useTabs,_that.indentationSpacesPerLevel,_that.maxEmptyLines,_that.removeTrailingCommas);case _:
   return null;
 
 }
@@ -228,7 +230,7 @@ return $default(_that.addNewLineAfterClosingBrace,_that.addNewLineAfterOpeningBr
 
 @JsonSerializable(fieldRename: FieldRename.pascal)
 class _Config extends Config {
-  const _Config({required this.addNewLineAfterClosingBrace, required this.addNewLineAfterOpeningBrace, required this.addNewLineAfterSemicolon, required this.addNewLineAtEndOfText, required this.addNewLineBeforeClosingBrace, required this.addNewLineBeforeOpeningBrace, required this.fixSpaces, required this.indentationSpacesPerLevel, required this.maxEmptyLines, required this.removeTrailingCommas}): super._();
+  const _Config({required this.addNewLineAfterClosingBrace, required this.addNewLineAfterOpeningBrace, required this.addNewLineAfterSemicolon, required this.addNewLineAtEndOfText, required this.addNewLineBeforeClosingBrace, required this.addNewLineBeforeOpeningBrace, required this.fixSpaces, required this.useTabs, required this.indentationSpacesPerLevel, required this.maxEmptyLines, required this.removeTrailingCommas}): super._();
   factory _Config.fromJson(Map<String, dynamic> json) => _$ConfigFromJson(json);
 
 /// Whether to add a new line after a closing brace.
@@ -245,6 +247,8 @@ class _Config extends Config {
 @override final  bool addNewLineBeforeOpeningBrace;
 /// Whether to fix spaces.
 @override final  bool fixSpaces;
+/// Whether to use tabs for indentation.
+@override final  bool useTabs;
 /// The number of spaces to use for indentation. -1 = do not change indentation.
 @override final  int indentationSpacesPerLevel;
 /// The maximum number of empty lines to allow. -1 = do not change empty lines.
@@ -265,16 +269,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Config&&(identical(other.addNewLineAfterClosingBrace, addNewLineAfterClosingBrace) || other.addNewLineAfterClosingBrace == addNewLineAfterClosingBrace)&&(identical(other.addNewLineAfterOpeningBrace, addNewLineAfterOpeningBrace) || other.addNewLineAfterOpeningBrace == addNewLineAfterOpeningBrace)&&(identical(other.addNewLineAfterSemicolon, addNewLineAfterSemicolon) || other.addNewLineAfterSemicolon == addNewLineAfterSemicolon)&&(identical(other.addNewLineAtEndOfText, addNewLineAtEndOfText) || other.addNewLineAtEndOfText == addNewLineAtEndOfText)&&(identical(other.addNewLineBeforeClosingBrace, addNewLineBeforeClosingBrace) || other.addNewLineBeforeClosingBrace == addNewLineBeforeClosingBrace)&&(identical(other.addNewLineBeforeOpeningBrace, addNewLineBeforeOpeningBrace) || other.addNewLineBeforeOpeningBrace == addNewLineBeforeOpeningBrace)&&(identical(other.fixSpaces, fixSpaces) || other.fixSpaces == fixSpaces)&&(identical(other.indentationSpacesPerLevel, indentationSpacesPerLevel) || other.indentationSpacesPerLevel == indentationSpacesPerLevel)&&(identical(other.maxEmptyLines, maxEmptyLines) || other.maxEmptyLines == maxEmptyLines)&&(identical(other.removeTrailingCommas, removeTrailingCommas) || other.removeTrailingCommas == removeTrailingCommas));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Config&&(identical(other.addNewLineAfterClosingBrace, addNewLineAfterClosingBrace) || other.addNewLineAfterClosingBrace == addNewLineAfterClosingBrace)&&(identical(other.addNewLineAfterOpeningBrace, addNewLineAfterOpeningBrace) || other.addNewLineAfterOpeningBrace == addNewLineAfterOpeningBrace)&&(identical(other.addNewLineAfterSemicolon, addNewLineAfterSemicolon) || other.addNewLineAfterSemicolon == addNewLineAfterSemicolon)&&(identical(other.addNewLineAtEndOfText, addNewLineAtEndOfText) || other.addNewLineAtEndOfText == addNewLineAtEndOfText)&&(identical(other.addNewLineBeforeClosingBrace, addNewLineBeforeClosingBrace) || other.addNewLineBeforeClosingBrace == addNewLineBeforeClosingBrace)&&(identical(other.addNewLineBeforeOpeningBrace, addNewLineBeforeOpeningBrace) || other.addNewLineBeforeOpeningBrace == addNewLineBeforeOpeningBrace)&&(identical(other.fixSpaces, fixSpaces) || other.fixSpaces == fixSpaces)&&(identical(other.useTabs, useTabs) || other.useTabs == useTabs)&&(identical(other.indentationSpacesPerLevel, indentationSpacesPerLevel) || other.indentationSpacesPerLevel == indentationSpacesPerLevel)&&(identical(other.maxEmptyLines, maxEmptyLines) || other.maxEmptyLines == maxEmptyLines)&&(identical(other.removeTrailingCommas, removeTrailingCommas) || other.removeTrailingCommas == removeTrailingCommas));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,addNewLineAfterClosingBrace,addNewLineAfterOpeningBrace,addNewLineAfterSemicolon,addNewLineAtEndOfText,addNewLineBeforeClosingBrace,addNewLineBeforeOpeningBrace,fixSpaces,indentationSpacesPerLevel,maxEmptyLines,removeTrailingCommas);
+int get hashCode => Object.hash(runtimeType,addNewLineAfterClosingBrace,addNewLineAfterOpeningBrace,addNewLineAfterSemicolon,addNewLineAtEndOfText,addNewLineBeforeClosingBrace,addNewLineBeforeOpeningBrace,fixSpaces,useTabs,indentationSpacesPerLevel,maxEmptyLines,removeTrailingCommas);
 
 @override
 String toString() {
-  return 'Config(addNewLineAfterClosingBrace: $addNewLineAfterClosingBrace, addNewLineAfterOpeningBrace: $addNewLineAfterOpeningBrace, addNewLineAfterSemicolon: $addNewLineAfterSemicolon, addNewLineAtEndOfText: $addNewLineAtEndOfText, addNewLineBeforeClosingBrace: $addNewLineBeforeClosingBrace, addNewLineBeforeOpeningBrace: $addNewLineBeforeOpeningBrace, fixSpaces: $fixSpaces, indentationSpacesPerLevel: $indentationSpacesPerLevel, maxEmptyLines: $maxEmptyLines, removeTrailingCommas: $removeTrailingCommas)';
+  return 'Config(addNewLineAfterClosingBrace: $addNewLineAfterClosingBrace, addNewLineAfterOpeningBrace: $addNewLineAfterOpeningBrace, addNewLineAfterSemicolon: $addNewLineAfterSemicolon, addNewLineAtEndOfText: $addNewLineAtEndOfText, addNewLineBeforeClosingBrace: $addNewLineBeforeClosingBrace, addNewLineBeforeOpeningBrace: $addNewLineBeforeOpeningBrace, fixSpaces: $fixSpaces, useTabs: $useTabs, indentationSpacesPerLevel: $indentationSpacesPerLevel, maxEmptyLines: $maxEmptyLines, removeTrailingCommas: $removeTrailingCommas)';
 }
 
 
@@ -285,7 +289,7 @@ abstract mixin class _$ConfigCopyWith<$Res> implements $ConfigCopyWith<$Res> {
   factory _$ConfigCopyWith(_Config value, $Res Function(_Config) _then) = __$ConfigCopyWithImpl;
 @override @useResult
 $Res call({
- bool addNewLineAfterClosingBrace, bool addNewLineAfterOpeningBrace, bool addNewLineAfterSemicolon, bool addNewLineAtEndOfText, bool addNewLineBeforeClosingBrace, bool addNewLineBeforeOpeningBrace, bool fixSpaces, int indentationSpacesPerLevel, int maxEmptyLines, bool removeTrailingCommas
+ bool addNewLineAfterClosingBrace, bool addNewLineAfterOpeningBrace, bool addNewLineAfterSemicolon, bool addNewLineAtEndOfText, bool addNewLineBeforeClosingBrace, bool addNewLineBeforeOpeningBrace, bool fixSpaces, bool useTabs, int indentationSpacesPerLevel, int maxEmptyLines, bool removeTrailingCommas
 });
 
 
@@ -302,7 +306,7 @@ class __$ConfigCopyWithImpl<$Res>
 
 /// Create a copy of Config
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? addNewLineAfterClosingBrace = null,Object? addNewLineAfterOpeningBrace = null,Object? addNewLineAfterSemicolon = null,Object? addNewLineAtEndOfText = null,Object? addNewLineBeforeClosingBrace = null,Object? addNewLineBeforeOpeningBrace = null,Object? fixSpaces = null,Object? indentationSpacesPerLevel = null,Object? maxEmptyLines = null,Object? removeTrailingCommas = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? addNewLineAfterClosingBrace = null,Object? addNewLineAfterOpeningBrace = null,Object? addNewLineAfterSemicolon = null,Object? addNewLineAtEndOfText = null,Object? addNewLineBeforeClosingBrace = null,Object? addNewLineBeforeOpeningBrace = null,Object? fixSpaces = null,Object? useTabs = null,Object? indentationSpacesPerLevel = null,Object? maxEmptyLines = null,Object? removeTrailingCommas = null,}) {
   return _then(_Config(
 addNewLineAfterClosingBrace: null == addNewLineAfterClosingBrace ? _self.addNewLineAfterClosingBrace : addNewLineAfterClosingBrace // ignore: cast_nullable_to_non_nullable
 as bool,addNewLineAfterOpeningBrace: null == addNewLineAfterOpeningBrace ? _self.addNewLineAfterOpeningBrace : addNewLineAfterOpeningBrace // ignore: cast_nullable_to_non_nullable
@@ -311,6 +315,7 @@ as bool,addNewLineAtEndOfText: null == addNewLineAtEndOfText ? _self.addNewLineA
 as bool,addNewLineBeforeClosingBrace: null == addNewLineBeforeClosingBrace ? _self.addNewLineBeforeClosingBrace : addNewLineBeforeClosingBrace // ignore: cast_nullable_to_non_nullable
 as bool,addNewLineBeforeOpeningBrace: null == addNewLineBeforeOpeningBrace ? _self.addNewLineBeforeOpeningBrace : addNewLineBeforeOpeningBrace // ignore: cast_nullable_to_non_nullable
 as bool,fixSpaces: null == fixSpaces ? _self.fixSpaces : fixSpaces // ignore: cast_nullable_to_non_nullable
+as bool,useTabs: null == useTabs ? _self.useTabs : useTabs // ignore: cast_nullable_to_non_nullable
 as bool,indentationSpacesPerLevel: null == indentationSpacesPerLevel ? _self.indentationSpacesPerLevel : indentationSpacesPerLevel // ignore: cast_nullable_to_non_nullable
 as int,maxEmptyLines: null == maxEmptyLines ? _self.maxEmptyLines : maxEmptyLines // ignore: cast_nullable_to_non_nullable
 as int,removeTrailingCommas: null == removeTrailingCommas ? _self.removeTrailingCommas : removeTrailingCommas // ignore: cast_nullable_to_non_nullable

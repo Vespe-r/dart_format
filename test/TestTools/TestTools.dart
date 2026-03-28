@@ -64,6 +64,7 @@ class TestTools
                                 parseResult,
                                 indentationSpacesPerLevel: testConfig.config.indentationSpacesPerLevel,
                                 removeTrailingCommas: testConfig.config.removeTrailingCommas,
+                                useTabs: testConfig.config.useTabs,
                                 leading: testGroupConfig.inputLeading,
                                 trailing: testGroupConfig.inputTrailing
                             );

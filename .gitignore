@@ -10,3 +10,6 @@ pubspec.lock
 /.idea/copilot.*
 /.idea/libraries/Dart_Packages.xml
 /doc/
+
+# FVM Version Cache
+.fvm/

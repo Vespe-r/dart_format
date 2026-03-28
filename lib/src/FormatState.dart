@@ -24,6 +24,7 @@ class FormatState
     final DateTime _maxDateTime;
     final ParseStringResult _parseResult;
     final bool _removeTrailingCommas;
+    final bool _useTabs;
     final DateTime _startDateTime;
 
     final List<StringBufferEx> _textBuffers = <StringBufferEx>[StringBufferEx()];
@@ -47,18 +48,21 @@ class FormatState
             required int indentationSpacesPerLevel,
             required DateTime maxDateTime,
             required bool removeTrailingCommas,
+            required bool useTabs,
             required DateTime startDateTime
         }
     )
         : _indentationSpacesPerLevel = indentationSpacesPerLevel,
         _maxDateTime = maxDateTime,
         _removeTrailingCommas = removeTrailingCommas,
+        _useTabs = useTabs,
         _parseResult = parseResult,
         _startDateTime = startDateTime;
 
     factory FormatState.test(ParseStringResult parseResult, {
             required int indentationSpacesPerLevel, 
             required bool removeTrailingCommas,
+            required bool useTabs,
             String? leading,
             String? trailing
         }
@@ -71,6 +75,7 @@ class FormatState
             indentationSpacesPerLevel: indentationSpacesPerLevel,
             maxDateTime: maxDateTime,
             removeTrailingCommas: removeTrailingCommas,
+            useTabs: useTabs,
             startDateTime: startDateTime
         )
             .._lastConsumedPosition = leading?.length ?? 0
@@ -835,6 +840,13 @@ class FormatState
         return '';
     }
 
+    String _getIndent(int levels)
+    {
+        if (_useTabs)
+            return '\t' * levels;
+        return ' ' * (_indentationSpacesPerLevel * levels);
+    }
+
     String getText(int offset, int end)
     {
         try
@@ -866,7 +878,7 @@ class FormatState
             logInternal('  Popped StringBuffer: allText:  ${StringTools.toDisplayString(poppedStringBuffer.toString())}');
         }
 
-        if (_indentationSpacesPerLevel < 0)
+        if (_indentationSpacesPerLevel < 0 && !_useTabs)
         {
             _textBuffers.last.write(poppedStringBuffer);
             return;
@@ -881,11 +893,11 @@ class FormatState
         if (lastLevel.type == IndentationType.single)
         {
             if (!s.trim().startsWith('{'))
-                indent = ' ' * _indentationSpacesPerLevel;
+                indent = _getIndent(1);
         }
         else if (lastLevel.type == IndentationType.multiple)
         {
-            indent = ' ' * _indentationSpacesPerLevel;
+            indent = _getIndent(1);
         }
 
         if (Constants.DEBUG_FORMAT_STATE) logInternal('  indent:      ${StringTools.toDisplayString(indent)}');
@@ -964,7 +976,7 @@ class FormatState
 
     String _removeLeadingWhitespace(String s, int offset, {bool isString = false})
     {
-        if (_indentationSpacesPerLevel < 0)
+        if (_indentationSpacesPerLevel < 0 && !_useTabs)
             return s;
 
         try

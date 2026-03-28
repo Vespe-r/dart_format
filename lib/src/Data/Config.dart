@@ -51,6 +51,11 @@ abstract class Config with _$Config
     /// Default value when all options are turned off: Whether to fix spaces.
     static const bool FIX_SPACES_NONE = false;
 
+    /// Default value when all options are turned on: Whether to use tabs for indentation.
+    static const bool USE_TABS_DEFAULT = false;
+    /// Default value when all options are turned off: Whether to use tabs for indentation.
+    static const bool USE_TABS_NONE = false;
+
     /// Default value when all options are turned on: The number of spaces to use for indentation.
     static const int INDENTATION_SPACES_PER_LEVEL_DEFAULT = 4;
     /// Default value when all options are turned off: The number of spaces to use for indentation.
@@ -86,6 +91,8 @@ abstract class Config with _$Config
         required bool addNewLineBeforeOpeningBrace,
         /// Whether to fix spaces.
         required bool fixSpaces,
+        /// Whether to use tabs for indentation.
+        required bool useTabs,
         /// The number of spaces to use for indentation. -1 = do not change indentation.
         required int indentationSpacesPerLevel,
         /// The maximum number of empty lines to allow. -1 = do not change empty lines.
@@ -114,6 +121,8 @@ abstract class Config with _$Config
         bool addNewLineBeforeOpeningBrace = ADD_NEW_LINE_BEFORE_OPENING_BRACE_DEFAULT,
         /// Whether to fix spaces.
         bool fixSpaces = FIX_SPACES_DEFAULT,
+        /// Whether to use tabs for indentation.
+        bool useTabs = USE_TABS_DEFAULT,
         /// The number of spaces to use for indentation. -1 = do not change indentation.
         int indentationSpacesPerLevel = INDENTATION_SPACES_PER_LEVEL_DEFAULT,
         /// The maximum number of empty lines to allow. -1 = do not change empty lines.
@@ -129,6 +138,7 @@ abstract class Config with _$Config
         addNewLineBeforeClosingBrace: addNewLineBeforeClosingBrace,
         addNewLineBeforeOpeningBrace: addNewLineBeforeOpeningBrace,
         fixSpaces: fixSpaces,
+        useTabs: useTabs,
         indentationSpacesPerLevel: indentationSpacesPerLevel,
         maxEmptyLines: maxEmptyLines,
         removeTrailingCommas: removeTrailingCommas
@@ -151,6 +161,8 @@ abstract class Config with _$Config
         bool addNewLineBeforeOpeningBrace = ADD_NEW_LINE_BEFORE_OPENING_BRACE_NONE,
         /// Whether to fix spaces.
         bool fixSpaces = FIX_SPACES_NONE,
+        /// Whether to use tabs for indentation.
+        bool useTabs = USE_TABS_NONE,
         /// The number of spaces to use for indentation. -1 = do not change indentation.
         int indentationSpacesPerLevel = INDENTATION_SPACES_PER_LEVEL_NONE,
         /// The maximum number of empty lines to allow. -1 = do not change empty lines.
@@ -166,6 +178,7 @@ abstract class Config with _$Config
         addNewLineBeforeClosingBrace: addNewLineBeforeClosingBrace,
         addNewLineBeforeOpeningBrace: addNewLineBeforeOpeningBrace,
         fixSpaces: fixSpaces,
+        useTabs: useTabs,
         indentationSpacesPerLevel: indentationSpacesPerLevel,
         maxEmptyLines: maxEmptyLines,
         removeTrailingCommas: removeTrailingCommas
